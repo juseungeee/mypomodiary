@@ -63,18 +63,37 @@ function startTimer() {
         // 시간이 다 되면 타이머 멈춤
       clearInterval(timer);
       timer = null;
-      alert("뽀모 완료! 🍅"); // 완료 알림
+
+      splash();
+
+      elapsedSeconds = totalSeconds;
+      updateTimerDisplay();
+      
+      alarmSound.play();
+
+      setTimeout(() => { 
+        alert("뽀모 완료! 🍅"); // 완료 알림 
+        }, 100)
     }
   }, SPEED);
 }
 
+function splash() {
+    tomatoImage.classList.remove('tomato');
+    tomatoImage.classList.add('splash');
+    tomatoImage.src = "images/splash.png";
+  }
+
+
 // 원 채워지는 그래픽 요소 가져오기
 const $fillingCircle = document.getElementById('filling-circle');
+const alarmSound = document.getElementById('alarm-sound');
+const tomatoImage = document.getElementById('tomato-image');
 
 // 타이머 원 채우기
 function updateFillingCircle() {
   const percentage = (elapsedSeconds / totalSeconds) * 360;
-  $fillingCircle.style.background = `conic-gradient(red ${percentage}deg, transparent 0deg)`;
+  $fillingCircle.style.background = `conic-gradient(#ffa5a5 ${percentage}deg, transparent 0deg)`;
 }
 
 // 타이머 리셋
@@ -84,6 +103,10 @@ function resetTimer() {
   elapsedSeconds = 0;
   updateTimerDisplay();
   updateFillingCircle();
+
+  tomatoImage.src = "images/tomato.png";
+  tomatoImage.classList.remove('splash');
+  tomatoImage.classList.add('tomato');
 }
 
 // 시작/리셋 버튼 이벤트 연결
