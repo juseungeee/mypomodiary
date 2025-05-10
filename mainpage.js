@@ -1,6 +1,9 @@
 const SPEED = 1;
 
-let elapsedSeconds = 0;
+let pomoRecord = {};
+let pomoCount = Number(localStorage.getItem('pomoCount')) || 0;
+
+let elapsedSeconds = 0; 
 const totalSeconds = 60 * 60;
 let timer = null;
 
@@ -9,10 +12,7 @@ function getTodayDateKeyKST() {
   now.setHours(now.getHours() + 9);
   return now.toISOString().slice(0, 10);
 }
-
 let todayDateKey = getTodayDateKeyKST();
-let pomoCount = Number(localStorage.getItem('pomoCount')) || 0; 
-let pomoRecord = {};
 
 const $box = document.getElementById('box');
 
@@ -31,13 +31,11 @@ const appendMinuteText = (minute, radius = 130) => {
   const X = radius * Math.cos(radian);
   const Y = radius * Math.sin(radian);
   const $minuteText = document.createElement('p');
-
   $minuteText.classList.add('minuteText');
   $minuteText.textContent = minute;
   $minuteText.style.left = '50%';
   $minuteText.style.top = '50%';
   $minuteText.style.transform = `translate(-50%, -50%) translate(${X}px, ${Y}px)`;
-
   $box.appendChild($minuteText);
 };
 const minuteFiveInterval = [...Array(12)].map((_, index) => index * 5);
@@ -52,6 +50,11 @@ function updateTimerDisplay() {
   let seconds = elapsedSeconds % 60;
   document.getElementById("timer-text").innerText =
     `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+function updateFillingCircle() {
+  const percentage = (elapsedSeconds / totalSeconds) * 360;
+  $fillingCircle.style.background = `conic-gradient(#ffa5a5 ${percentage}deg, transparent 0deg)`;
 }
 
 function startTimer() {
@@ -73,24 +76,24 @@ function startTimer() {
       updateTimerDisplay();
       alarmSound.play();
 
-      setTimeout(() => { 
-        alert("뽀모 완료! 🍅"); 
+      setTimeout(() => {
+        alert("뽀모 완료! 🍅");
       }, 100);
 
       todayDateKey = getTodayDateKeyKST();
-
       if (!pomoRecord[todayDateKey]) {
         pomoRecord[todayDateKey] = 0;
       }
       pomoRecord[todayDateKey]++;
-
-      db.collection('pomoRecords').doc(todayDateKey).set({ 
+      db.collection('pomoRecords').doc(todayDateKey).set({
         count: pomoRecord[todayDateKey]
       }).then(() => {
         console.log('Firestore 저장 성공');
       }).catch((error) => {
         console.error('Firestore 저장 실패', error);
       });
+
+      generateCalendar();
     }
   }, SPEED);
 }
@@ -101,14 +104,9 @@ function splash() {
   tomatoImage.src = "images/splash.png";
 }
 
-const $fillingCircle = document.getElementById('filling-circle');
 const alarmSound = document.getElementById('alarm-sound');
+const $fillingCircle = document.getElementById('filling-circle');
 const tomatoImage = document.getElementById('tomato-image');
-
-function updateFillingCircle() {
-  const percentage = (elapsedSeconds / totalSeconds) * 360;
-  $fillingCircle.style.background = `conic-gradient(#ffa5a5 ${percentage}deg, transparent 0deg)`;
-}
 
 function resetTimer() {
   clearInterval(timer);
@@ -116,7 +114,6 @@ function resetTimer() {
   elapsedSeconds = 0;
   updateTimerDisplay();
   updateFillingCircle();
-
   tomatoImage.src = "images/tomato.png";
   tomatoImage.classList.remove('splash');
   tomatoImage.classList.add('tomato');
@@ -139,7 +136,9 @@ function updateTodayDate() {
 
 function checkMidnightReset() {
   const now = new Date();
-  if (now.getHours() === 0 && now.getMinutes() === 0) {
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  if (hours === 0 && minutes === 0) {
     pomoCount = 0;
     todayDateKey = getTodayDateKeyKST();
     updateTodayDate();
@@ -147,7 +146,6 @@ function checkMidnightReset() {
     localStorage.setItem('pomoCount', 0);
   }
 }
-
 setInterval(checkMidnightReset, 60000);
 
 function generateCalendar() {
@@ -212,6 +210,13 @@ async function loadPomoRecord() {
   }
 }
 
+function updateCalendarTitle() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  document.getElementById('calendar-title').innerText = `${year}년 ${month}월`;
+}
+
 document.getElementById("start-button").addEventListener("click", startTimer);
 document.getElementById("reset-button").addEventListener("click", resetTimer);
 document.getElementById('go-to-settings').addEventListener('click', () => {
@@ -222,5 +227,6 @@ updateTimerDisplay();
 updateTodayDate();
 updatePomoCount();
 loadPomoRecord().then(() => {
-  generateCalendar(); 
+  generateCalendar();
+  updateCalendarTitle();
 });
