@@ -220,7 +220,7 @@ function updateCalendarTitle() {
 document.getElementById("start-button").addEventListener("click", startTimer);
 document.getElementById("reset-button").addEventListener("click", resetTimer);
 document.getElementById('go-to-settings').addEventListener('click', () => {
-  window.location.href = 'settings.html';
+  window.location.href = 'jsettings.html';
 });
 
 updateTimerDisplay();
