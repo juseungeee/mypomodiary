@@ -5,8 +5,10 @@ let elapsedSeconds = 0; // 현재 경과된 시간
 const totalSeconds = 60 * 60;  // 60분 = 3600초
 let timer = null; // setInterval ID 저장용
 
-let pomoCount = 0; // Today 뽀모 수
+// 브라우저에 저장된 뽀모 수가 있으면 불러오고, 없으면 0으로 시작 => 새로고침해도 값이 유지
+let pomoCount = Number(localStorage.getItem('pomoCount')) || 0; 
 let todayDateKey = new Date().toISOString().slice(0, 10); // 오늘 날짜 (yyyy-mm-dd)
+let pomoRecord = {}; // 날짜별 뽀모 수 
 
 // 타이머 박스 요소 가져오기
 const $box = document.getElementById('box');
@@ -67,20 +69,33 @@ function startTimer() {
         // 시간이 다 되면 타이머 멈춤
       clearInterval(timer);
       timer = null;
-
       splash(); // 이미지 변경 (토마토->토마토터짐)
-
       pomoCount++; // Today 뽀모 수 1 증가
       updatePomoCount(); // 화면 반영
 
+      localStorage.setItem('pomoCount', pomoCount);
+
       elapsedSeconds = totalSeconds;
       updateTimerDisplay();
-      
       alarmSound.play(); // 알림음 재생
 
       setTimeout(() => { 
         alert("뽀모 완료! 🍅"); // 완료 알림 
         }, 100)
+      
+      // 날짜별 뽀모 수 파이어베이스에 저장
+      if (!pomoRecord[todayDateKey]) {
+        pomoRecord[todayDateKey] = 0;
+      }
+      pomoRecord[todayDateKey]++;
+  
+      db.collection('pomoRecords').doc(todayDateKey).set({ 
+        count: pomoRecord[todayDateKey]
+      }).then(() => {
+        console.log('Firestore 저장 성공');
+      }).catch((error) => {
+        console.error('Firestore 저장 실패', error);
+      });
     }
   }, SPEED);
 }
@@ -150,6 +165,8 @@ function updateTodayDate() {
       todayDateKey = now.toISOString().slice(0, 10);
       updateTodayDate();
       updatePomoCount();
+
+      localStorage.setItem('pomoCount', 0);
     }
   }
   

@@ -4,6 +4,23 @@
   <meta charset="UTF-8">
   <title>My Pomo Diary - 메인</title>
   <link rel="stylesheet" href="mainpage.css">
+
+   <!-- 파이어베이스 연동 -->
+   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+   
+    <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA9oC8B0BdnNjCNH64Lf2gPwhhjYk-4uB8",
+      authDomain: "js-mypomodiary.firebaseapp.com",
+      projectId: "js-mypomodiary",
+      storageBucket: "js-mypomodiary.firebasestorage.app",
+      messagingSenderId: "574720005402",
+      appId: "1:574720005402:web:89ee31b59898df208148a3"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    </script>
 </head>
 <body>
   <header>

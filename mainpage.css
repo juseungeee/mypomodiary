@@ -111,15 +111,6 @@ button:hover {
   transform: translate(-50%, -50%);
 }
 
-#calendar {
-  width: 300px;
-  height: 300px;
-  background-color: #fff;
-  border: 2px solid #ccc;
-  margin-top: 20px;
-  padding: 10px;
-}
-
 #settings-section {
   margin-top: 30px;
 }
