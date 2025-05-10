@@ -2,34 +2,44 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>My Pomo Diary</title>
+  <title>My Pomo Diary - 메인</title>
   <link rel="stylesheet" href="mainpage.css">
 </head>
 <body>
   <header>
     <h1>My Pomo Diary</h1>
     <p id="today-date"></p>
-    <p id="today-pomo-count">Today : 0 pomo</p>
+    <p id="today-pomo-count">Today: 0 pomo</p>
   </header>
 
-  <section id="timer-section">
-    <h2>Pomodoro Timer</h2>
+  <div id="main-content">
+    <section id="timer-section">
 
-    <div id="box">
-      <div id="timer-text"></div>
-      <div id="filling-circle"></div> 
-      <img id="tomato-image" class="tomato" src="images/tomato.png" alt="토마토">
-    </div>
+      <div id="box">
+        <div id="timer-text"></div>
+        <div id="filling-circle"></div> 
+        <img id="tomato-image" class="tomato" src="images/tomato.png" alt="토마토">
+      </div>
+  
+      <button id="start-button">Start</button>
+      <button id="reset-button">Reset</button>
+    </section>
 
-    <button id="start-button">Start</button>
-    <button id="reset-button">Reset</button>
+    <section id="calendar-section">
+      <h2>Calendar</h2>
+      <div id="calendar"></div>
+    </section>
+
+  </div>
+  
+
+  
+
+  <section id="settings-section">
+    <button id="go-to-settings">설정 페이지로 가기</button>
   </section>
 
-  <section id="calendar-section">
-    <h2>Calendar</h2>
-    <div id="calendar"></div>
-  </section>
-
+  
   <audio id="alarm-sound" src="sounds/explosion.mp3" preload="auto"></audio>
 
   <script src="mainpage.js"></script>

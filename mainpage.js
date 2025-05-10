@@ -156,12 +156,61 @@ function updateTodayDate() {
   // 1분마다 자정 체크
 setInterval(checkMidnightReset, 60000);
 
-// 시작/리셋 버튼 이벤트 연결
+// 달력 그리기
+function generateCalendar() {
+  const $calendar = document.getElementById('calendar');
+  $calendar.innerHTML = ''; // 초기화
+
+  const today = new Date();
+  const year = today.getFullYear(); // 연도 추출 
+  const month = today.getMonth(); // 월 추출
+
+  // 이번 달 1일이 무슨 요일인지 확인인
+  const firstDay = new Date(year, month, 1).getDay();
+  // 이번 달의 마지막 날짜 구하기기
+  const lastDate = new Date(year, month + 1, 0).getDate(); 
+
+  const totalCells = 42; // 7일 * 6주 => 총 42칸
+  const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+  // 요일을 달력 위에 추가
+  dayNames.forEach(day => {
+    const $dayHeader = document.createElement('div');
+    $dayHeader.classList.add('day-header');
+    $dayHeader.innerText = day;
+    $calendar.appendChild($dayHeader);
+  });
+  // 날짜 셀 42개를 순회하면서 달력 칸을 하나씩 채움
+  for (let i = 0; i < totalCells; i++) {
+    const $dateCell = document.createElement('div');
+    $dateCell.classList.add('date-cell');
+
+    const dateNum = i - firstDay + 1; // 실제 날짜 계산
+    // 유효한 날짜만 표시
+    if (dateNum > 0 && dateNum <= lastDate) {
+      $dateCell.innerText = dateNum;
+      // 오늘 날짜 강조 표시
+      if (
+        dateNum === today.getDate() &&
+        year === today.getFullYear() &&
+        month === today.getMonth()
+      ) {
+        $dateCell.classList.add('today');
+      }
+    }  
+    $calendar.appendChild($dateCell);
+  }
+}
+
+// 시작/리셋/설정 버튼 이벤트 연결
 document.getElementById("start-button").addEventListener("click", startTimer);
 document.getElementById("reset-button").addEventListener("click", resetTimer);
+document.getElementById('go-to-settings').addEventListener('click', () => {
+  window.location.href = 'settings.html';
+});
 
 // 페이지 첫 로딩 시 초기화
 updateTimerDisplay();
 updateTodayDate()
 updatePomoCount();
+generateCalendar();
 
