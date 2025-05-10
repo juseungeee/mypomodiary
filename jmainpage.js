@@ -1,3 +1,4 @@
+// 속도 조절용 (1000 = 정상, 1 = 테스트용 빠른 모드)
 const SPEED = 1;
 
 let pomoRecord = {};
@@ -185,6 +186,15 @@ function generateCalendar() {
       $pomoCount.style.marginTop = '3px';
       $pomoCount.innerText = `${pomoForThisDate}뽀모`;
       $dateCell.appendChild($pomoCount);
+
+      $dateCell.addEventListener('click', () => {
+        const clickedDate = new Date(year, month, dateNum);
+        clickedDate.setHours(clickedDate.getHours() + 9); 
+        const clickedDateKey = clickedDate.toISOString().slice(0, 10);
+
+        localStorage.setItem('selectedDate', clickedDateKey);
+        window.location.href = 'jplanner.html';
+      });
 
       if (
         dateNum === today.getDate() &&
