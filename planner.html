@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>STUDY with TOMATO</title>
+  <link rel="stylesheet" href="planner.css">
+  
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC7ZRLhk1d7FFausaekmTZD1SeUu9HzOnU",
+      authDomain: "mypomodiary.firebaseapp.com",
+      projectId: "mypomodiary",
+      storageBucket: "mypomodiary.firebasestorage.app",
+      messagingSenderId: "794367325363",
+      appId: "1:794367325363:web:0b2496794087e4021d6cc6"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>STUDY with <span class="highlight">TOMATO</span></h1>
+    <button id="go-to-main">🍅</button>
+  </header>
+
+  <main>
+    
+    <section id="planner-section">
+      <div id="date-title"></div>
+      
+      <ul id="todo-list">
+      </ul>
+
+      <div id="input-section">
+        <input type="text" id="new-todo-input" placeholder="할 일을 입력하세요!">
+        <button id="add-todo-button">🍅</button>
+      </div>
+      <div id="complete-section">
+        <button id="complete-button">오늘 계획 완료</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="planner.js"></script>
+
+</body>
+</html>

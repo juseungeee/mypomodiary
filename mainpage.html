@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+  <title>My Pomo Diary</title>
+  <link rel="stylesheet" href="mainpage.css">
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC7ZRLhk1d7FFausaekmTZD1SeUu9HzOnU",
+      authDomain: "mypomodiary.firebaseapp.com",
+      projectId: "mypomodiary",
+      storageBucket: "mypomodiary.firebasestorage.app",
+      messagingSenderId: "794367325363",
+      appId: "1:794367325363:web:0b2496794087e4021d6cc6"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+</head>
+<body>
+  <header>
+    <h1>🍅 My Pomo Diary 🍅</h1>
+  </header>
+
+  <div id="main-content">
+    <section id="timer-section">
+      <div id="timer-info">
+        <p id="today-date"></p>
+        <p id="today-pomo-count">오늘의 수확 : 0개</p>
+      </div>
+
+      <div id="box">
+        <div id="timer-text"></div>
+        <div id="filling-circle"></div> 
+        <img id="tomato-image" class="tomato" src="images/tomato.png" alt="토마토">
+      </div>
+
+      <div id="timer-buttons">
+        <button id="start-button">🍅Start</button>
+        <button id="reset-button">🍅Reset</button>
+        <button id="go-to-settings" class="tiny-button">⚙️</button>
+      </div>
+    </section>
+
+    <section id="calendar-section">
+      <div id="calendar-header">
+        <button id="prev-month">🍅</button>
+        <h2 id="calendar-title">2025년 5월</h2>
+        <button id="next-month">🍅</button>
+      </div>
+      <p id="calendar-guide">날짜를 클릭하면 스터디 플래너로 이동합니다</p>
+      <div id="calendar"></div>
+    </section>
+
+  </div>
+
+  
+  <audio id="alarm-sound" src="sounds/explosion.mp3" preload="auto"></audio>
+
+  <script src="mainpage.js"></script>
+</body>
+</html>

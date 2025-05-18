@@ -1,0 +1,280 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  margin-top: 20px;
+}
+
+header h1 {
+  font-family: 'Jua', sans-serif;
+  font-size: 50px;
+  color: black;
+  margin-bottom: 10px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+}
+
+#box {
+  margin: 20px auto;
+  width: 300px;
+  height: 300px;
+  border-radius: 10%;
+  position: relative;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1;
+}
+
+.minuteHand {
+  position: absolute;
+}
+
+.thin {
+  width: 71%;
+  border: 1px solid black;
+}
+
+.thick {
+  width: 75%;
+  border: 1.5px solid black;
+}
+
+.minuteText {
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  transform: translate(-50%, -50%);
+}
+
+#timer-text {
+  font-family: 'Jua', sans-serif;
+  position: absolute;
+  font-size: 25px;
+  font-weight: bold;
+  color: #333;
+  z-index: 3;
+}
+
+#circleForHide {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: #f0f0f0;
+  border-radius: 100%;
+  z-index: 1;
+}
+
+#timer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 0px;
+}
+
+#timer-buttons button {
+  font-family: 'Jua', sans-serif;
+  background: none;
+  border: none;
+  font-size: 23px;
+  color: black;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+#timer-buttons button:hover {
+  transform: scale(1.1);
+}
+
+#filling-circle {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: conic-gradient(rgb(255, 0, 0) 0deg, transparent 0deg);
+  z-index: 2;
+}
+
+.tomato {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  z-index: 2;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.splash {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  z-index: 2;
+  top: 48%;
+  left: 53%;
+  transform: translate(-50%, -50%);
+}
+
+#calendar-header {
+  font-family: 'Jua', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+#calendar-header button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: black;
+  transition: transform 0.2s;
+}
+
+#calendar-header button:hover {
+  transform: scale(1.2);
+}
+
+#calendar-title {
+  font-family: 'Jua', sans-serif;
+  font-weight: normal;
+  margin: 10px 15px 0 15px;
+  font-size: 26px;
+}
+
+#settings-section {
+  margin-top: 30px;
+}
+
+.tiny-button {
+  font-size: 16px;
+  color: gray;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.tiny-button:hover {
+  transform: scale(1.2);
+}
+
+#main-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  margin-top: 30px;
+}
+
+#timer-section,
+#calendar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#timer-section {
+  margin-top: 10px;
+}
+
+#calendar-section {
+  margin-top: -20px;
+}
+
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  width: 400px;
+  height: 500px;
+  background-color: #ffc9c9;
+  border: none;
+  margin-top: -10px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.day-header {
+  font-family: 'Jua', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #b44444;
+  font-size: 16px;
+  background-color: #ffebeb;
+  width: 104%;
+  height: 30px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.date-cell {
+  font-family: 'Jua', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 82%;
+  height: 60px;
+  background-color: #fff5f5;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  padding: 5px;
+  font-weight: bold;
+  border: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.date-cell:hover {
+  background-color: #eafbd4;
+}
+
+#calendar-guide {
+  font-size: 14px;
+  color: #777;
+  margin: 5px 0 15px 0;
+  text-align: center;
+}
+
+.today {
+  background-color: #eafbd4;
+  color: black;
+  font-weight: bold;
+}
+
+#timer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+#today-date {
+  font-family: 'Jua', sans-serif;
+  font-size: 25px;
+  color: black;
+}
+
+#today-pomo-count {
+  font-family: 'Jua', sans-serif;
+  font-size: 25px;
+  color: black;
+}
