@@ -4,6 +4,22 @@
   <meta charset="UTF-8">
   <title>스터디 플래너</title>
   <link rel="stylesheet" href="jplanner.css">
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+   
+    <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA9oC8B0BdnNjCNH64Lf2gPwhhjYk-4uB8",
+      authDomain: "js-mypomodiary.firebaseapp.com",
+      projectId: "js-mypomodiary",
+      storageBucket: "js-mypomodiary.firebasestorage.app",
+      messagingSenderId: "574720005402",
+      appId: "1:574720005402:web:89ee31b59898df208148a3"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    </script>
 </head>
 <body>
 
