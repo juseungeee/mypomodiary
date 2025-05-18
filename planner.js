@@ -55,8 +55,9 @@ async function loadTasks() {
 
 function renderTasks() {
   todoList.innerHTML = '';
-  tasks.forEach((task) => {
+  tasks.forEach(task => {
     const li = document.createElement('li');
+    li.setAttribute('data-id', task.id);
 
     const label = document.createElement('label');
     label.className = 'emoji-checkbox';
@@ -173,16 +174,13 @@ const sortable = new Sortable(todoList, {
   onEnd: async function () {
     const newTasks = [];
     const listItems = todoList.querySelectorAll('li');
-
     listItems.forEach(li => {
-      const checkbox = li.querySelector('input[type="checkbox"]');
-      const textSpan = li.querySelector('span');
-      const matchingTask = tasks.find(task => task.text === textSpan.textContent);
+      const taskId = li.getAttribute('data-id');
+      const matchingTask = tasks.find(task => task.id === taskId);
       if (matchingTask) {
         newTasks.push(matchingTask);
       }
     });
-
     tasks = newTasks;
     await saveTasks();
   }
@@ -193,7 +191,6 @@ completeButton.addEventListener('click', async () => {
   if (!confirmComplete) return;
 
   const allCompleted = tasks.length > 0 && tasks.every(task => task.completed);
-
   if (allCompleted) {
     try {
       await db.collection('completedRecords').doc(selectedDate).set({ completed: true });
