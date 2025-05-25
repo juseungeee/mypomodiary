@@ -1,4 +1,4 @@
-// 속도 조절용 (1000 = 정상, 1 = 테스트용 빠른 모드)
+// 📌 속도 조절용 (1000 = 정상, 10 = 테스트용 빠른 모드)
 const SPEED = 1000;
 
 let currentYear = Number(localStorage.getItem('calendarYear')) || new Date().getFullYear();
@@ -163,7 +163,6 @@ setInterval(checkMidnightReset, 60000);
 function checkInitialDateReset() {
   const storedDateKey = localStorage.getItem('pomoDate');
   const nowDateKey = getTodayDateKeyKST();
-
   if (storedDateKey !== nowDateKey) {
     pomoCount = 0;
     todayDateKey = nowDateKey;

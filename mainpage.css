@@ -267,12 +267,7 @@ body {
   margin-bottom: 5px;
 }
 
-#today-date {
-  font-family: 'Jua', sans-serif;
-  font-size: 25px;
-  color: black;
-}
-
+#today-date,
 #today-pomo-count {
   font-family: 'Jua', sans-serif;
   font-size: 25px;
